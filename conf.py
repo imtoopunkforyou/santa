@@ -1,4 +1,4 @@
-TOKEN = '2076318905:AAHioBm4C7k6tNCoOKi8W38EtEIBJj93gAw'
+TOKEN = ''
 
 members = [
     'Чепракова Мария',
