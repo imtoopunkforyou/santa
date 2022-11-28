@@ -21,32 +21,40 @@ def start_message(message):
     bot.send_message(message.chat.id,
                      'Привет! Я бот, который создаёт пары для тайного санты! Напиши мне /list',
                      reply_markup=markup)
-    
+
 @bot.message_handler(commands=['list'])
 def list_message(message):
     bot.send_message(message.chat.id,
                      f'Выбери своё имя! Пожалуйста, пришли мне только номер :) \n\n {db.get_members_list()}')
-    
+
 @bot.message_handler(commands=['db'])
 def get_table(message):
-    bot.send_message(message.chat.id,
+    if message.chat.id == 723820184:
+        bot.send_message(message.chat.id,
                      f'Данные в таблицах: \n\n {db.read_tables()}')
-    
+    else:
+       bot.send_message(message.chat.id,
+                     f'Жулик! Ты не админ!')
+
 @bot.message_handler(commands=['santas'])
 def santas(message):
-    bot.send_message(message.chat.id, db.get_santas())
-    
+    if message.chat.id == 723820184:
+       bot.send_message(message.chat.id, db.get_santas())
+    else:
+       bot.send_message(message.chat.id,
+                     f'Жулик! Ты не админ!')
+
 @bot.message_handler(content_types=['text'])
 def func(message):
     if not db.cheque_chat(message.chat.id):
-        pair = db.assign_a_couple(player=int(message.text), chat_id=message.chat.id) 
+        pair = db.assign_a_couple(player=int(message.text), chat_id=message.chat.id)
         bot.send_message(message.chat.id,
                         f'Ты большой молодец!\nТы будешь тайным сантой для {pair}\n\n'
                         'Пожалуйста, не пиши мне больше ничего\n'
                         'Меня написал одинокий программист пока смотрел мультики и пил пиво \n'
                         'Давай не будем меня ломать, даже если очень хочется :)')
     else:
-        bot.send_message(message.chat.id, 
+        bot.send_message(message.chat.id,
                          'Ты уже стал тайным сантой :)')
 
 if __name__ == '__main__':
