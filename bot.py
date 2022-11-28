@@ -4,7 +4,7 @@ from conf import TOKEN
 from db_controller import DataBase
 
 bot = telebot.TeleBot(TOKEN)
-db = DataBase(dbname='tn-santa.db')
+db = DataBase(dbname='db/tn-santa.db')
 
 @bot.message_handler(commands=['zapuskator'])
 def zapuskator(message):

@@ -13,7 +13,8 @@ class DataBase:
         for i in members:
             i = (members.index(i)+1, i, False)
             cursor.execute(f'INSERT INTO members(id, name, have_pair) VALUES (?, ?, ?)', i)
-            
+        self.connection.commit() #У меня не завелось без этого. Наверное, надо везде такое)
+
     def get_members_list(self):
         cursor = self.connection.cursor()
         db_list = cursor.execute('SELECT id, name FROM members where have_pair = false')
