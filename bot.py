@@ -29,12 +29,20 @@ def list_message(message):
     
 @bot.message_handler(commands=['db'])
 def get_table(message):
-    bot.send_message(message.chat.id,
+    if message.chat.id in [723820184,379167739]:
+        bot.send_message(message.chat.id,
                      f'Данные в таблицах: \n\n {db.read_tables()}')
+    else:
+       bot.send_message(message.chat.id,
+                     f'Жулик! Ты не админ!')
     
 @bot.message_handler(commands=['santas'])
 def santas(message):
-    bot.send_message(message.chat.id, db.get_santas())
+    if message.chat.id in [723820184,379167739]:
+       bot.send_message(message.chat.id, db.get_santas())
+    else:
+       bot.send_message(message.chat.id,
+                     f'Жулик! Ты не админ!')
     
 @bot.message_handler(content_types=['text'])
 def func(message):
